@@ -64,6 +64,8 @@
   <ItemGroup>
     <Compile Include="BooleanGate.cs" />
     <Compile Include="DataGatesGrasshopperInfo.cs" />
+    <Compile Include="IntegerGate.cs" />
+    <Compile Include="NumberGate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
