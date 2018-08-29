@@ -8,8 +8,8 @@
     <ProjectGuid>{DD1E5B63-84F1-443F-83C3-A55167C8D1DB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataGatesGrasshopper</RootNamespace>
-    <AssemblyName>DataGatesGrasshopper</AssemblyName>
+    <RootNamespace>DataToolsGrasshopper</RootNamespace>
+    <AssemblyName>DataToolsGrasshopper</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
