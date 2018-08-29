@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace DataGatesGrasshopper
+namespace DataGatesGrasshopper.DataGates
 {
     public class IntegerGate : GH_Component
     {
@@ -23,12 +23,12 @@ namespace DataGatesGrasshopper
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("int", "int", "", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("int", "i", "", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddIntegerParameter("int", "int", "", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("int", "i", "", GH_ParamAccess.item);
         }
 
         protected override void ExpireDownStreamObjects()

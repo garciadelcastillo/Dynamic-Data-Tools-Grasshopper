@@ -62,11 +62,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BooleanGate.cs" />
+    <Compile Include="DataGates\BooleanGate.cs" />
     <Compile Include="DataGatesGrasshopperInfo.cs" />
-    <Compile Include="IntegerGate.cs" />
-    <Compile Include="NumberGate.cs" />
+    <Compile Include="DataGates\IntegerGate.cs" />
+    <Compile Include="DataGates\LineGate.cs" />
+    <Compile Include="DataGates\NumberGate.cs" />
+    <Compile Include="DataGates\PlaneGate.cs" />
+    <Compile Include="DataGates\PointGate.cs" />
+    <Compile Include="DataGates\TextGate.cs" />
+    <Compile Include="DataGates\VectorGate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\AreSimilar.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
