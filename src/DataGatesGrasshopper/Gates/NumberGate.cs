@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace DataGatesGrasshopper.DataGates
+namespace DataToolsGrasshopper.Gates
 {
     public class NumberGate : GH_Component
     {
@@ -13,12 +13,12 @@ namespace DataGatesGrasshopper.DataGates
 
         public NumberGate()
           : base("Number Gate", "Number Gate",
-              "Triggers an update only if new different data came through.",
-              "Data Gates", "Data")
+              "Will let data trough only if it changed since the previous solution.",
+              "Data Tools", "Gates")
         {
         }
 
-        protected override System.Drawing.Bitmap Icon => null;
+        protected override System.Drawing.Bitmap Icon => Properties.Resources.icons_number_gate;
         public override Guid ComponentGuid => new Guid("5a4d12ca-113e-41be-ba56-33a77ea0541a");
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)

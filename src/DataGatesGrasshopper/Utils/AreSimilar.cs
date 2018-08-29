@@ -8,7 +8,7 @@ using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Geometry;
 using Rhino.Geometry;
 
-namespace DataGatesGrasshopper.Utils
+namespace DataToolsGrasshopper.Utils
 {
     internal class AreSimilar
     {

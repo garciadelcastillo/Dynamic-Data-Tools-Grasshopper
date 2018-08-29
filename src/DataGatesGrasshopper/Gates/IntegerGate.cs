@@ -4,32 +4,31 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace DataGatesGrasshopper.DataGates
+namespace DataToolsGrasshopper.Gates
 {
-    public class PointGate : GH_Component
+    public class IntegerGate : GH_Component
     {
         private bool UpdateOutput { get; set; }
-        private Point3d PreviousData { get; set; }
+        private int PreviousData { get; set; }
 
-        public PointGate()
-          : base("Point Gate", "Point Gate",
-              "Triggers an update only if new different data came through.",
-              "Data Gates", "Data")
+        public IntegerGate()
+          : base("Integer Gate", "Integer Gate",
+              "Will let data trough only if it changed since the previous solution.",
+              "Data Tools", "Gates")
         {
         }
 
-        protected override System.Drawing.Bitmap Icon => null;
-        public override Guid ComponentGuid => new Guid("bfa34739-4f21-42e0-ae64-650f9f7dc9d6");
+        protected override System.Drawing.Bitmap Icon => Properties.Resources.icons_integer_gate;
+        public override Guid ComponentGuid => new Guid("49a4fd75-4667-45d6-93f5-41a97e2b0a72");
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddPointParameter("point", "p", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("precision", "e", "Decimal precision for equality comparison", GH_ParamAccess.item, 0.0001);
+            pManager.AddIntegerParameter("int", "i", "", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddPointParameter("point", "p", "", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("int", "i", "", GH_ParamAccess.item);
         }
 
         protected override void ExpireDownStreamObjects()
@@ -44,12 +43,9 @@ namespace DataGatesGrasshopper.DataGates
         {
             access.DisableGapLogic();
 
-            Point3d currentData = Point3d.Unset;
-            double epsilon = 0.0001;
+            int currentData = 0;
 
             if (!access.GetData(0, ref currentData)) return;
-            access.GetData(1, ref epsilon);
-
             access.SetData(0, currentData);
 
             if (UpdateOutput)
@@ -59,7 +55,7 @@ namespace DataGatesGrasshopper.DataGates
                 return;
             }
 
-            if (!Utils.AreSimilar.Point3d(PreviousData, currentData, epsilon))
+            if (PreviousData != currentData)
             {
                 UpdateOutput = true;
                 PreviousData = currentData;

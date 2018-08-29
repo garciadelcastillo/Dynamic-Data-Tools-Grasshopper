@@ -3,32 +3,32 @@
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace DataGatesGrasshopper.DataGates
+namespace DataToolsGrasshopper.Gates
 {
-    public class LineGate : GH_Component
+    public class PlaneGate : GH_Component
     {
         private bool UpdateOutput { get; set; }
-        private Line PreviousData { get; set; }
+        private Plane PreviousData { get; set; }
 
-        public LineGate()
-          : base("Line Gate", "Line Gate",
-              "Triggers an update only if new different data came through.",
-              "Data Gates", "Data")
+        public PlaneGate()
+          : base("Plane Gate", "Plane Gate",
+              "Will let data trough only if it changed since the previous solution.",
+              "Data Tools", "Gates")
         {
         }
 
-        protected override System.Drawing.Bitmap Icon => null;
-        public override Guid ComponentGuid => new Guid("6744e093-2875-44dc-b4e1-f3dc938872c3");
+        protected override System.Drawing.Bitmap Icon => Properties.Resources.icons_plane_gate;
+        public override Guid ComponentGuid => new Guid("61988426-af3e-4eaa-a1b6-a4eaa01e369d");
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddLineParameter("line", "l", "", GH_ParamAccess.item);
+            pManager.AddPlaneParameter("plane", "pl", "", GH_ParamAccess.item);
             pManager.AddNumberParameter("precision", "e", "Decimal precision for equality comparison", GH_ParamAccess.item, 0.0001);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddLineParameter("line", "l", "", GH_ParamAccess.item);
+            pManager.AddPlaneParameter("plane", "pl", "", GH_ParamAccess.item);
         }
 
         protected override void ExpireDownStreamObjects()
@@ -43,7 +43,7 @@ namespace DataGatesGrasshopper.DataGates
         {
             access.DisableGapLogic();
 
-            Line currentData = Line.Unset;
+            Plane currentData = Plane.Unset;
             double epsilon = 0.0001;
 
             if (!access.GetData(0, ref currentData)) return;
@@ -58,7 +58,7 @@ namespace DataGatesGrasshopper.DataGates
                 return;
             }
 
-            if (!Utils.AreSimilar.Line(PreviousData, currentData, epsilon))
+            if (!Utils.AreSimilar.Plane(PreviousData, currentData, epsilon))
             {
                 UpdateOutput = true;
                 PreviousData = currentData;

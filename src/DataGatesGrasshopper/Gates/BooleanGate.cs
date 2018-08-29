@@ -1,33 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace DataGatesGrasshopper.DataGates
+namespace DataToolsGrasshopper.Gates
 {
-    public class TextGate : GH_Component
+    public class BooleanGate : GH_Component
     {
         private bool UpdateOutput { get; set; }
-        private string PreviousData { get; set; }
+        private bool PreviousData { get; set; }
 
-        public TextGate()
-          : base("Text Gate", "Text Gate",
-              "Triggers an update only if new different data came through.",
-              "Data Gates", "Data")
+        public BooleanGate()
+          : base("Boolean Gate", "Boolean Gate",
+              "Will let data trough only if it changed since the previous solution.",
+              "Data Tools", "Gates")
         {
         }
 
-        protected override System.Drawing.Bitmap Icon => null;
-        public override Guid ComponentGuid => new Guid("3c924fe1-565d-4fcf-8acd-919c6f229d88");
+        protected override System.Drawing.Bitmap Icon => Properties.Resources.icons_boolean_gate;
+        public override Guid ComponentGuid => new Guid("28bf9d69-0fae-4511-ac67-7ade22697ffa");
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("text", "t", "", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("bool", "b", "", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("text", "t", "", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("bool", "b", "", GH_ParamAccess.item);
         }
 
         protected override void ExpireDownStreamObjects()
@@ -42,11 +43,11 @@ namespace DataGatesGrasshopper.DataGates
         {
             access.DisableGapLogic();
 
-            string currentData = "";
+            bool currentData = false;
 
             if (!access.GetData(0, ref currentData)) return;
             access.SetData(0, currentData);
-
+            
             if (UpdateOutput)
             {
                 UpdateOutput = false;
@@ -54,7 +55,7 @@ namespace DataGatesGrasshopper.DataGates
                 return;
             }
 
-            if (!string.Equals(PreviousData, currentData))
+            if (PreviousData != currentData)
             {
                 UpdateOutput = true;
                 PreviousData = currentData;

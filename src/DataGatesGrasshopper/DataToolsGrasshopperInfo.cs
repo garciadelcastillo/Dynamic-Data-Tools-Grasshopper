@@ -2,15 +2,15 @@
 using System.Drawing;
 using Grasshopper.Kernel;
 
-namespace DataGatesGrasshopper
+namespace DataToolsGrasshopper
 {
-    public class DataGatesGrasshopperInfo : GH_AssemblyInfo
+    public class DataToolsGrasshopperInfo : GH_AssemblyInfo
     {
         public override string Name
         {
             get
             {
-                return "DataGatesGrasshopper";
+                return "Data Tools";
             }
         }
         public override Bitmap Icon
@@ -26,7 +26,7 @@ namespace DataGatesGrasshopper
             get
             {
                 //Return a short string describing the purpose of this GHA library.
-                return "";
+                return "Helper tools for dynamic data management";
             }
         }
         public override Guid Id
@@ -42,7 +42,7 @@ namespace DataGatesGrasshopper
             get
             {
                 //Return a string identifying you or your company.
-                return "";
+                return "Jose Luis Garcia del Castillo y Lopez";
             }
         }
         public override string AuthorContact
@@ -50,7 +50,7 @@ namespace DataGatesGrasshopper
             get
             {
                 //Return a string representing your preferred contact details.
-                return "";
+                return "https://github.com/garciadelcastillo";
             }
         }
     }

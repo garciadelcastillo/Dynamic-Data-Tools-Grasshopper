@@ -62,17 +62,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataGates\BooleanGate.cs" />
-    <Compile Include="DataGatesGrasshopperInfo.cs" />
-    <Compile Include="DataGates\IntegerGate.cs" />
-    <Compile Include="DataGates\LineGate.cs" />
-    <Compile Include="DataGates\NumberGate.cs" />
-    <Compile Include="DataGates\PlaneGate.cs" />
-    <Compile Include="DataGates\PointGate.cs" />
-    <Compile Include="DataGates\TextGate.cs" />
-    <Compile Include="DataGates\VectorGate.cs" />
+    <Compile Include="Gates\BooleanGate.cs" />
+    <Compile Include="DataToolsGrasshopperInfo.cs" />
+    <Compile Include="Gates\IntegerGate.cs" />
+    <Compile Include="Gates\LineGate.cs" />
+    <Compile Include="Gates\NumberGate.cs" />
+    <Compile Include="Gates\PlaneGate.cs" />
+    <Compile Include="Gates\PointGate.cs" />
+    <Compile Include="Gates\TextGate.cs" />
+    <Compile Include="Gates\VectorGate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utils\AreSimilar.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\icons_boolean_gate.png" />
+    <Content Include="Resources\icons_integer_gate.png" />
+    <Content Include="Resources\icons_line_gate.png" />
+    <Content Include="Resources\icons_number_gate.png" />
+    <Content Include="Resources\icons_plane_gate.png" />
+    <Content Include="Resources\icons_point_gate.png" />
+    <Content Include="Resources\icons_text_gate.png" />
+    <Content Include="Resources\icons_vector_gate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
