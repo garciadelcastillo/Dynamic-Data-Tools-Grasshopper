@@ -79,6 +79,10 @@ namespace DataToolsGrasshopper.Utils
                 {
                     return EqualPointData(A as GH_Structure<GH_Point>, B as GH_Structure<GH_Point>, epsilon);
                 }
+                else if (typeof(T) == typeof(GH_Vector))
+                {
+                    return EqualVectorData(A as GH_Structure<GH_Vector>, B as GH_Structure<GH_Vector>, epsilon);
+                }
             }
             catch
             {
@@ -181,7 +185,32 @@ namespace DataToolsGrasshopper.Utils
             return true;
         }
 
+        /// <summary>
+        /// Returns true if the values of all coordinates of the vectors are below an epsilon threshold. 
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        internal static bool EqualVectorData(GH_Structure<GH_Vector> A, GH_Structure<GH_Vector> B, double epsilon)
+        {
+            var bA = A.Branches;
+            var bB = B.Branches;
+            Vector3d a, b;
+            for (int i = bA.Count - 1; i >= 0; i--)
+            {
+                for (int j = bA[i].Count - 1; j >= 0; j--)
+                {
+                    a = bA[i][j].Value;
+                    b = bB[i][j].Value;
+                    if (Math.Abs(a.X - b.X) > epsilon || Math.Abs(a.Y - b.Y) > epsilon || Math.Abs(a.Z - b.Z) > epsilon) return false;
+                }
+            }
 
-        
+            return true;
+        }
+
+
+
     }
 }
