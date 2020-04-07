@@ -9,13 +9,14 @@ namespace DataToolsGrasshopper.Gates
     public class IntegerGate : GH_Component
     {
         private bool UpdateOutput { get; set; }
-        private int PreviousData { get; set; }
+        private List<int> PreviousData { get; set; }
 
         public IntegerGate()
           : base("Integer Gate", "Integer Gate",
-              "Will let data trough only if it changed since the previous solution.",
+              "Will let data trough only if it changed since the previous solution. WORKS WITH LISTS OF DATA",
               "Data Tools", "Gates")
         {
+            PreviousData = new List<int>();
         }
 
         protected override System.Drawing.Bitmap Icon => Properties.Resources.icons_integer_gate;
@@ -23,12 +24,12 @@ namespace DataToolsGrasshopper.Gates
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("int", "i", "", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("int", "i", "", GH_ParamAccess.list);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddIntegerParameter("int", "i", "", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("int", "i", "", GH_ParamAccess.list);
         }
 
         protected override void ExpireDownStreamObjects()
@@ -43,10 +44,10 @@ namespace DataToolsGrasshopper.Gates
         {
             access.DisableGapLogic();
 
-            int currentData = 0;
+            List<int> currentData = new List<int>();
 
-            if (!access.GetData(0, ref currentData)) return;
-            access.SetData(0, currentData);
+            if (!access.GetDataList(0, currentData)) return;
+            access.SetDataList(0, currentData);
 
             if (UpdateOutput)
             {
@@ -55,7 +56,7 @@ namespace DataToolsGrasshopper.Gates
                 return;
             }
 
-            if (PreviousData != currentData)
+            if (!Utils.AreEqual.IntLists(PreviousData, currentData))
             {
                 UpdateOutput = true;
                 PreviousData = currentData;
@@ -69,7 +70,6 @@ namespace DataToolsGrasshopper.Gates
         {
             if (UpdateOutput) ExpireSolution(false);
         }
-
 
     }
 }

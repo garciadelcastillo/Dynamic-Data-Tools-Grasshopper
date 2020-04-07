@@ -31,5 +31,23 @@ namespace DataToolsGrasshopper.Utils
         {
             return Point3d(a.Origin, b.Origin, epsilon) && Vector3d(a.XAxis, b.XAxis, epsilon) && Vector3d(a.YAxis, b.YAxis, epsilon);
         }
+
+        internal static bool PlaneList(List<Rhino.Geometry.Plane> A, List<Rhino.Geometry.Plane> B, double epsilon)
+        {
+            if (A.Count != B.Count)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < A.Count; i++)
+            {
+                if (!Plane(A[i], B[i], epsilon))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

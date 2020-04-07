@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
@@ -8,13 +9,14 @@ namespace DataToolsGrasshopper.Gates
     public class PlaneGate : GH_Component
     {
         private bool UpdateOutput { get; set; }
-        private Plane PreviousData { get; set; }
+        private List<Plane> PreviousData { get; set; }
 
         public PlaneGate()
           : base("Plane Gate", "Plane Gate",
-              "Will let data trough only if it changed since the previous solution.",
+              "Will let data trough only if it changed since the previous solution. WORKS ON LISTS OF PLANES TOO.",
               "Data Tools", "Gates")
         {
+            PreviousData = new List<Plane>();
         }
 
         protected override System.Drawing.Bitmap Icon => Properties.Resources.icons_plane_gate;
@@ -22,13 +24,13 @@ namespace DataToolsGrasshopper.Gates
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddPlaneParameter("plane", "pl", "", GH_ParamAccess.item);
+            pManager.AddPlaneParameter("plane", "pl", "", GH_ParamAccess.list);
             pManager.AddNumberParameter("precision", "e", "Decimal precision for equality comparison", GH_ParamAccess.item, 0.0001);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddPlaneParameter("plane", "pl", "", GH_ParamAccess.item);
+            pManager.AddPlaneParameter("plane", "pl", "", GH_ParamAccess.list);
         }
 
         protected override void ExpireDownStreamObjects()
@@ -43,13 +45,13 @@ namespace DataToolsGrasshopper.Gates
         {
             access.DisableGapLogic();
 
-            Plane currentData = Plane.Unset;
+            List<Plane> currentData = new List<Plane>();
             double epsilon = 0.0001;
 
-            if (!access.GetData(0, ref currentData)) return;
+            if (!access.GetDataList(0, currentData)) return;
             access.GetData(1, ref epsilon);
 
-            access.SetData(0, currentData);
+            access.SetDataList(0, currentData);
 
             if (UpdateOutput)
             {
@@ -58,7 +60,7 @@ namespace DataToolsGrasshopper.Gates
                 return;
             }
 
-            if (!Utils.AreSimilar.Plane(PreviousData, currentData, epsilon))
+            if (!Utils.AreSimilar.PlaneList(PreviousData, currentData, epsilon))
             {
                 UpdateOutput = true;
                 PreviousData = currentData;

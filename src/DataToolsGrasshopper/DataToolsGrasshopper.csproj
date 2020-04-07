@@ -10,9 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DataToolsGrasshopper</RootNamespace>
     <AssemblyName>DataToolsGrasshopper</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug32|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,25 +40,24 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="RhinoCommon">
+      <HintPath>C:\Program Files\Rhino 6\System\RhinoCommon.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="RhinoCommon">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>c:\Program Files (x86)\Rhinoceros 5\System\rhinocommon.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Grasshopper">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
+      <HintPath>C:\Program Files\Rhino 6\Plug-ins\Grasshopper\Grasshopper.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GH_IO">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\GH_IO.dll</HintPath>
+      <HintPath>C:\Program Files\Rhino 6\Plug-ins\Grasshopper\GH_IO.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -77,10 +77,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Recorder\DataRecorder.cs" />
+    <Compile Include="Switches\SwitchOff.cs" />
+    <Compile Include="Utils\AreEqual.cs" />
     <Compile Include="Utils\AreSimilar.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\icons_boolean_gate.png" />
+    <Content Include="Resources\icons_data_recorder.png" />
     <Content Include="Resources\icons_integer_gate.png" />
     <Content Include="Resources\icons_line_gate.png" />
     <Content Include="Resources\icons_number_gate.png" />
@@ -105,13 +109,24 @@
   -->
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-Erase "$(TargetPath)"</PostBuildEvent>
+Erase "$(TargetPath)"
+
+IF ($(ConfigurationName)) == (Debug) GOTO END
+cd $(ProjectDir)
+cd..
+cd..
+cd dist/nightly
+copy /y "$(TargetDir)$(ProjectName).gha" $(ProjectName).gha
+:END
+
+</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug32|AnyCPU' ">
     <StartArguments>
     </StartArguments>
     <StartAction>Program</StartAction>
     <StartProgram>c:\Program Files (x86)\Rhinoceros 5\System\Rhino4.exe</StartProgram>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
@@ -121,5 +136,6 @@ Erase "$(TargetPath)"</PostBuildEvent>
     <StartArguments>
     </StartArguments>
     <StartAction>Program</StartAction>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
 </Project>

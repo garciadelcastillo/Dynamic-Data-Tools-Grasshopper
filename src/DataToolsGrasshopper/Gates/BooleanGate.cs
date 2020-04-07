@@ -12,9 +12,11 @@ namespace DataToolsGrasshopper.Gates
         private bool PreviousData { get; set; }
 
         public BooleanGate()
-          : base("Boolean Gate", "Boolean Gate",
+          : base("Boolean Gate", 
+              "Boolean Gate",
               "Will let data trough only if it changed since the previous solution.",
-              "Data Tools", "Gates")
+              "Data Tools", 
+              "Gates")
         {
         }
 

@@ -58,7 +58,7 @@ namespace DataToolsGrasshopper.Gates
                 return;
             }
 
-            if (Math.Abs(PreviousData - currentData) > epsilon)
+            if (double.IsNaN(PreviousData) != double.IsNaN(currentData) || Math.Abs(PreviousData - currentData) > epsilon)
             {
                 UpdateOutput = true;
                 PreviousData = currentData;
