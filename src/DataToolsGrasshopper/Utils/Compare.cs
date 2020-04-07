@@ -166,7 +166,7 @@ namespace DataToolsGrasshopper.Utils
                 {
                     a = bA[i][j].Value;
                     b = bB[i][j].Value;
-                    if (Math.Abs(b - a) > epsilon || 
+                    if (Math.Abs(b - a) >= epsilon || 
                         double.IsNaN(a) != double.IsNaN(b)) return false;
                 }
             }
@@ -192,9 +192,9 @@ namespace DataToolsGrasshopper.Utils
                 {
                     a = bA[i][j].Value;
                     b = bB[i][j].Value;
-                    if (Math.Abs(a.X - b.X) > epsilon || 
-                        Math.Abs(a.Y - b.Y) > epsilon || 
-                        Math.Abs(a.Z - b.Z) > epsilon) return false;
+                    if (Math.Abs(a.X - b.X) >= epsilon || 
+                        Math.Abs(a.Y - b.Y) >= epsilon || 
+                        Math.Abs(a.Z - b.Z) >= epsilon) return false;
                 }
             }
 
@@ -219,9 +219,9 @@ namespace DataToolsGrasshopper.Utils
                 {
                     a = bA[i][j].Value;
                     b = bB[i][j].Value;
-                    if (Math.Abs(a.X - b.X) > epsilon || 
-                        Math.Abs(a.Y - b.Y) > epsilon || 
-                        Math.Abs(a.Z - b.Z) > epsilon) return false;
+                    if (Math.Abs(a.X - b.X) >= epsilon || 
+                        Math.Abs(a.Y - b.Y) >= epsilon || 
+                        Math.Abs(a.Z - b.Z) >= epsilon) return false;
                 }
             }
 
@@ -247,15 +247,15 @@ namespace DataToolsGrasshopper.Utils
                     a = bA[i][j].Value;
                     b = bB[i][j].Value;
                     if (
-                        Math.Abs(a.OriginX - b.OriginX) > epsilon ||
-                        Math.Abs(a.OriginY - b.OriginY) > epsilon ||
-                        Math.Abs(a.OriginZ - b.OriginZ) > epsilon ||
-                        Math.Abs(a.XAxis.X - b.XAxis.X) > epsilon ||
-                        Math.Abs(a.XAxis.Y - b.XAxis.Y) > epsilon ||
-                        Math.Abs(a.XAxis.Z - b.XAxis.Z) > epsilon ||
-                        Math.Abs(a.YAxis.X - b.YAxis.X) > epsilon ||
-                        Math.Abs(a.YAxis.Y - b.YAxis.Y) > epsilon ||
-                        Math.Abs(a.YAxis.Z - b.YAxis.Z) > epsilon) return false;
+                        Math.Abs(a.OriginX - b.OriginX) >= epsilon ||
+                        Math.Abs(a.OriginY - b.OriginY) >= epsilon ||
+                        Math.Abs(a.OriginZ - b.OriginZ) >= epsilon ||
+                        Math.Abs(a.XAxis.X - b.XAxis.X) >= epsilon ||
+                        Math.Abs(a.XAxis.Y - b.XAxis.Y) >= epsilon ||
+                        Math.Abs(a.XAxis.Z - b.XAxis.Z) >= epsilon ||
+                        Math.Abs(a.YAxis.X - b.YAxis.X) >= epsilon ||
+                        Math.Abs(a.YAxis.Y - b.YAxis.Y) >= epsilon ||
+                        Math.Abs(a.YAxis.Z - b.YAxis.Z) >= epsilon) return false;
                 }
             }
 
@@ -281,12 +281,12 @@ namespace DataToolsGrasshopper.Utils
                     a = bA[i][j].Value;
                     b = bB[i][j].Value;
                     if (
-                        Math.Abs(a.FromX - b.FromX) > epsilon ||
-                        Math.Abs(a.FromY - b.FromY) > epsilon ||
-                        Math.Abs(a.FromZ - b.FromZ) > epsilon ||
-                        Math.Abs(a.ToX - b.ToX) > epsilon ||
-                        Math.Abs(a.ToY - b.ToY) > epsilon ||
-                        Math.Abs(a.ToZ - b.ToZ) > epsilon) return false;
+                        Math.Abs(a.FromX - b.FromX) >= epsilon ||
+                        Math.Abs(a.FromY - b.FromY) >= epsilon ||
+                        Math.Abs(a.FromZ - b.FromZ) >= epsilon ||
+                        Math.Abs(a.ToX - b.ToX) >= epsilon ||
+                        Math.Abs(a.ToY - b.ToY) >= epsilon ||
+                        Math.Abs(a.ToZ - b.ToZ) >= epsilon) return false;
                 }
             }
 
