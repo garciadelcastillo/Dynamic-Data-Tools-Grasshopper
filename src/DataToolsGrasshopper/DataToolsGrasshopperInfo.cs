@@ -6,11 +6,13 @@ namespace DataToolsGrasshopper
 {
     public class DataToolsGrasshopperInfo : GH_AssemblyInfo
     {
+        internal static readonly string PLUGIN_NAME = "Dynamic Data Tools";
+
         public override string Name
         {
             get
             {
-                return "Data Tools";
+                return PLUGIN_NAME;
             }
         }
         public override Bitmap Icon
