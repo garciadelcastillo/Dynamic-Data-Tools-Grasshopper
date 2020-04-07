@@ -100,5 +100,26 @@ namespace DataToolsGrasshopper.Utils
 
             return true;
         }
+
+        /// <summary>
+        /// Returns true if all Integer elements of the tree are equal.
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
+        internal static bool EqualIntData(GH_Structure<GH_Integer> A, GH_Structure<GH_Integer> B)
+        {
+            var bA = A.Branches;
+            var bB = B.Branches;
+            for (int i = bA.Count - 1; i >= 0; i--)
+            {
+                for (int j = bA[i].Count - 1; j >= 0; j--)
+                {
+                    if (bA[i][j].Value != bB[i][j].Value) return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

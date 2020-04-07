@@ -11,26 +11,27 @@ using DataToolsGrasshopper.Utils;
 
 namespace DataToolsGrasshopper.Data
 {
-    public class BooleanGate : GHDataComponent<GH_Boolean>
+    public class IntegerGate : GHDataComponent<GH_Integer>
     {
-        public BooleanGate()
-          : base("Boolean Gate", 
-              "Boolean Gate",
-              "Will let Boolean data trough only if it changed since the previous solution. Works at the full Data Tree level.")
+        public IntegerGate()
+          : base("Integer Gate", 
+              "Integer Gate",
+              "Will let Integer data trough only if it changed since the previous solution. Works at the full Data Tree level.")
         { }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
-        protected override System.Drawing.Bitmap Icon => Properties.Resources.icons_boolean_gate;
-        public override Guid ComponentGuid => new Guid("28bf9d69-0fae-4511-ac67-7ade22697ffa");
+        protected override System.Drawing.Bitmap Icon => Properties.Resources.icons_integer_gate;
+        public override Guid ComponentGuid => new Guid("49a4fd75-4667-45d6-93f5-41a97e2b0a72");
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddBooleanParameter("Bool", "B", "Input Boolean data.", GH_ParamAccess.tree);
+            pManager.AddIntegerParameter("Int", "I", "Input Integer data.", GH_ParamAccess.tree);
+            pManager[0].Optional = true;  // avoid "failed to collect data" 
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddBooleanParameter("Bool", "B", "Output will update only if input changed.", GH_ParamAccess.tree);
+            pManager.AddIntegerParameter("Int", "I", "Output will update only if input changed.", GH_ParamAccess.tree);
         }
 
         protected override void SolveInstance(IGH_DataAccess access)
@@ -39,8 +40,9 @@ namespace DataToolsGrasshopper.Data
             // if we don't assign anything to an output.
             access.DisableGapLogic();
 
-            if (!access.GetDataTree(0, out GH_Structure<GH_Boolean> currentData)) return;
-            
+            // Don't exit if no data
+            access.GetDataTree(0, out GH_Structure<GH_Integer> currentData);
+
             // This avoids components updating twice on definition startup
             if (Active)
             {
@@ -51,17 +53,17 @@ namespace DataToolsGrasshopper.Data
             if (UpdateOutput)
             {
                 // DataTrees work by reference. Must create a deep copy to avoid PreviousData pointing at the new incoming data. 
-                PreviousData = new GH_Structure<GH_Boolean>(currentData, false);
+                PreviousData = new GH_Structure<GH_Integer>(currentData, false);
                 UpdateOutput = false;
                 return;
             }
 
             // If data structure and content is different
-            if (!Compare<GH_Boolean>.EqualDataTrees(PreviousData, currentData, 0) ||
-                !Compare<GH_Boolean>.EqualBoolData(PreviousData, currentData))
+            if (!Compare<GH_Integer>.EqualDataTrees(PreviousData, currentData, 0) ||
+                !Compare<GH_Integer>.EqualIntData(PreviousData, currentData))
             {
                 // DataTrees work by reference. Must create a deep copy to avoid PreviousData pointing at the new incoming data. 
-                PreviousData = new GH_Structure<GH_Boolean>(currentData, false);
+                PreviousData = new GH_Structure<GH_Integer>(currentData, false);
                 UpdateOutput = true;
                 Active = true;
 

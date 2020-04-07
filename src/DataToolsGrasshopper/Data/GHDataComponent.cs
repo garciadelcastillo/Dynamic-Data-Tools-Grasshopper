@@ -14,22 +14,27 @@ using DataToolsGrasshopper.Utils;
 
 namespace DataToolsGrasshopper.Data
 {
-    public abstract class GHDataComponent : GHDDTComponent
+    public abstract class GHDataComponent<T> : GHDDTComponent where T : IGH_Goo
     {
         /// <summary>
         /// Category name for components.
         /// </summary>
-        internal static readonly string CATEGORY_NAME = "Data";
+        protected static readonly string CATEGORY_NAME = "Data";
+
+        /// <summary>
+        /// The data from previous solution.
+        /// </summary>
+        protected GH_Structure<T> PreviousData { get; set; }
 
         /// <summary>
         /// Flag this component to get an update after a scheduled solution.
         /// </summary>
-        internal bool UpdateOutput { get; set; }
+        protected bool UpdateOutput { get; set; }
 
         /// <summary>
         /// A switch flag to avoid updating twice upon definition startup.
         /// </summary>
-        internal bool Active = false;
+        protected bool Active = false;
 
         /// <summary>
         /// Middleware constructor.
@@ -38,7 +43,10 @@ namespace DataToolsGrasshopper.Data
         /// <param name="nickname"></param>
         /// <param name="description"></param>
         public GHDataComponent(string name, string nickname, string description) 
-            : base (name, nickname, description, CATEGORY_NAME) { }
+            : base (name, nickname, description, CATEGORY_NAME) 
+        {
+            PreviousData = new GH_Structure<T>();
+        }
 
         
         /// <summary>
@@ -61,5 +69,6 @@ namespace DataToolsGrasshopper.Data
                 Params.Output[0].ExpireSolution(false);
             }
         }
+
     }
 }
