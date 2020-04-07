@@ -41,13 +41,19 @@ namespace DataToolsGrasshopper.Data
             : base (name, nickname, description, CATEGORY_NAME) { }
 
         
-
+        /// <summary>
+        /// "Pre"callback for solution scheduler. Will be executed before next scheduled solution.
+        /// </summary>
+        /// <param name="doc"></param>
         protected void PreCallBack(GH_Document doc)
         {
-            // This ends up calling `ExpireDownStreamObjects` through managed code
-            if (UpdateOutput) ExpireSolution(false);  // flag this solution as expired, but do not recompute 
+            // Flag this solution as expired, but do not recompute 
+            if (UpdateOutput) ExpireSolution(false);  
         }
 
+        /// <summary>
+        /// Called by managed code after `ExpireSolution`.
+        /// </summary>
         protected override void ExpireDownStreamObjects()
         {
             if (UpdateOutput)
