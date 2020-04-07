@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataToolsGrasshopper.Gates
+namespace DataToolsGrasshopper.Data
 {
     public abstract class GHDataComponent : GHDDTComponent
     {

@@ -10,7 +10,7 @@ using Rhino.Geometry;
 
 namespace DataToolsGrasshopper.Utils
 {
-    internal class AreSimilar
+    internal static class AreSimilar
     {
         internal static bool Point3d(Point3d a, Point3d b, double epsilon)
         {

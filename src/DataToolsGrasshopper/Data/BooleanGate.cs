@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Grasshopper;
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Data;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
-namespace DataToolsGrasshopper.Gates
+namespace DataToolsGrasshopper.Data
 {
-    public class BooleanGate : GH_Component
+    public class BooleanGate : GHDataComponent
     {
         private bool UpdateOutput { get; set; }
-        private bool PreviousData { get; set; }
+        private DataTree<bool> PreviousData { get; set; }
 
         public BooleanGate()
           : base("Boolean Gate", 
               "Boolean Gate",
-              "Will let data trough only if it changed since the previous solution.",
-              "Data Tools", 
-              "Gates")
+              "Will let data trough only if it changed since the previous solution.")
         {
         }
 

@@ -4,9 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Grasshopper;
+using Grasshopper.Kernel;
+using Grasshopper.Kernel.Data;
+using Grasshopper.Kernel.Types;
+using Rhino.Geometry;
+
 namespace DataToolsGrasshopper.Utils
 {
-    internal class AreEqual
+    internal static class AreEqual
     {
         internal static bool IntLists(List<int> A, List<int> B)
         {
