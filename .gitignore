@@ -330,5 +330,5 @@ ASALocalRun/
 .mfractor/
 
 ## JLX
-dist/nightly/DataToolsGrasshopper.gha
-tests/test_gates.gh
+dist/nightly/
+tests/

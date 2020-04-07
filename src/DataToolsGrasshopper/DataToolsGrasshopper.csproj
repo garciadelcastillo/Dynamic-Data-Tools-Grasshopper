@@ -81,8 +81,6 @@
     </Compile>
     <Compile Include="Recorder\DataRecorder.cs" />
     <Compile Include="Switches\SwitchOff.cs" />
-    <Compile Include="Utils\AreEqual.cs" />
-    <Compile Include="Utils\AreSimilar.cs" />
     <Compile Include="Utils\Compare.cs" />
   </ItemGroup>
   <ItemGroup>
