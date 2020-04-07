@@ -63,25 +63,30 @@ namespace DataToolsGrasshopper.Utils
             // Figure out data types and branch down to a different comparison method
             try
             {
-                if (typeof(T) == typeof(GH_Boolean))
+                Type type = typeof(T);
+                if (type == typeof(GH_Boolean))
                 {
                     return EqualBoolData(A as GH_Structure<GH_Boolean>, B as GH_Structure<GH_Boolean>);
                 }
-                else if (typeof(T) == typeof(GH_Integer))
+                else if (type == typeof(GH_Integer))
                 {
                     return EqualIntData(A as GH_Structure<GH_Integer>, B as GH_Structure<GH_Integer>);
                 }
-                else if (typeof(T) == typeof(GH_Number))
+                else if (type == typeof(GH_Number))
                 {
                     return EqualNumData(A as GH_Structure<GH_Number>, B as GH_Structure<GH_Number>, epsilon);
                 }
-                else if (typeof(T) == typeof(GH_Point))
+                else if (type == typeof(GH_Point))
                 {
                     return EqualPointData(A as GH_Structure<GH_Point>, B as GH_Structure<GH_Point>, epsilon);
                 }
-                else if (typeof(T) == typeof(GH_Vector))
+                else if (type == typeof(GH_Vector))
                 {
                     return EqualVectorData(A as GH_Structure<GH_Vector>, B as GH_Structure<GH_Vector>, epsilon);
+                }
+                else if (type == typeof(GH_Plane))
+                {
+                    return EqualPlaneData(A as GH_Structure<GH_Plane>, B as GH_Structure<GH_Plane>, epsilon);
                 }
             }
             catch
@@ -209,6 +214,41 @@ namespace DataToolsGrasshopper.Utils
 
             return true;
         }
+
+        /// <summary>
+        /// Returns true if the values of all coordinates of the vectors are below an epsilon threshold. 
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        internal static bool EqualPlaneData(GH_Structure<GH_Plane> A, GH_Structure<GH_Plane> B, double epsilon)
+        {
+            var bA = A.Branches;
+            var bB = B.Branches;
+            Plane a, b;
+            for (int i = bA.Count - 1; i >= 0; i--)
+            {
+                for (int j = bA[i].Count - 1; j >= 0; j--)
+                {
+                    a = bA[i][j].Value;
+                    b = bB[i][j].Value;
+                    if (
+                        Math.Abs(a.OriginX - b.OriginX) > epsilon ||
+                        Math.Abs(a.OriginY - b.OriginY) > epsilon ||
+                        Math.Abs(a.OriginZ - b.OriginZ) > epsilon ||
+                        Math.Abs(a.XAxis.X - b.XAxis.X) > epsilon ||
+                        Math.Abs(a.XAxis.Y - b.XAxis.Y) > epsilon ||
+                        Math.Abs(a.XAxis.Z - b.XAxis.Z) > epsilon ||
+                        Math.Abs(a.YAxis.X - b.YAxis.X) > epsilon ||
+                        Math.Abs(a.YAxis.Y - b.YAxis.Y) > epsilon ||
+                        Math.Abs(a.YAxis.Z - b.YAxis.Z) > epsilon) return false;
+                }
+            }
+
+            return true;
+        }
+
 
 
 
