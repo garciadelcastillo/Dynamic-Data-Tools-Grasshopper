@@ -88,6 +88,14 @@ namespace DataToolsGrasshopper.Utils
                 {
                     return EqualPlaneData(A as GH_Structure<GH_Plane>, B as GH_Structure<GH_Plane>, epsilon);
                 }
+                else if (type == typeof(GH_Line))
+                {
+                    return EqualLineData(A as GH_Structure<GH_Line>, B as GH_Structure<GH_Line>, epsilon);
+                }
+                else if (type == typeof(GH_String))
+                {
+                    return EqualTextData(A as GH_Structure<GH_String>, B as GH_Structure<GH_String>);
+                }
             }
             catch
             {
@@ -285,8 +293,26 @@ namespace DataToolsGrasshopper.Utils
             return true;
         }
 
+        /// <summary>
+        /// Returns true if all the strings are equal.
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
+        internal static bool EqualTextData(GH_Structure<GH_String> A, GH_Structure<GH_String> B)
+        {
+            var bA = A.Branches;
+            var bB = B.Branches;
+            for (int i = bA.Count - 1; i >= 0; i--)
+            {
+                for (int j = bA[i].Count - 1; j >= 0; j--)
+                {
+                    if (!string.Equals(bA[i][j].Value, bB[i][j].Value)) return false;
+                }
+            }
 
-
+            return true;
+        }
 
     }
 }
