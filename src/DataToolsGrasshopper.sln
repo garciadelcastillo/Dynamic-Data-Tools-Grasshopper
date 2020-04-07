@@ -1,17 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataToolsGrasshopper", "DataToolsGrasshopper\DataToolsGrasshopper.csproj", "{DD1E5B63-84F1-443F-83C3-A55167C8D1DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug32|Any CPU = Debug32|Any CPU
 		Debug64|Any CPU = Debug64|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD1E5B63-84F1-443F-83C3-A55167C8D1DB}.Debug|Any CPU.ActiveCfg = Debug64|Any CPU
+		{DD1E5B63-84F1-443F-83C3-A55167C8D1DB}.Debug|Any CPU.Build.0 = Debug64|Any CPU
 		{DD1E5B63-84F1-443F-83C3-A55167C8D1DB}.Debug32|Any CPU.ActiveCfg = Debug32|Any CPU
 		{DD1E5B63-84F1-443F-83C3-A55167C8D1DB}.Debug32|Any CPU.Build.0 = Debug32|Any CPU
 		{DD1E5B63-84F1-443F-83C3-A55167C8D1DB}.Debug64|Any CPU.ActiveCfg = Debug64|Any CPU
@@ -21,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B9E7A9CB-929A-4383-8438-E2903DA38BB4}
 	EndGlobalSection
 EndGlobal
