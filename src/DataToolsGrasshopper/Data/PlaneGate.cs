@@ -24,7 +24,7 @@ namespace DataToolsGrasshopper.Data
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
         protected override System.Drawing.Bitmap Icon => Properties.Resources.icons_plane_gate;
-        public override Guid ComponentGuid => new Guid("61988426-af3e-4eaa-a1b6-a4eaa01e369d");
+        public override Guid ComponentGuid => new Guid("2793424d-4318-43c9-93d1-418a0dac73af");
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
