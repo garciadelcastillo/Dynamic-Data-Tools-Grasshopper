@@ -71,6 +71,10 @@ namespace DataToolsGrasshopper.Utils
                 {
                     return EqualIntData(A as GH_Structure<GH_Integer>, B as GH_Structure<GH_Integer>);
                 }
+                else if (typeof(T) == typeof(GH_Number))
+                {
+                    return EqualNumData(A as GH_Structure<GH_Number>, B as GH_Structure<GH_Number>, epsilon);
+                }
             }
             catch
             {
@@ -123,6 +127,30 @@ namespace DataToolsGrasshopper.Utils
             return true;
         }
 
+        /// <summary>
+        /// Returns true if all values are similar under a certain epsilon threshold.
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        internal static bool EqualNumData(GH_Structure<GH_Number> A, GH_Structure<GH_Number> B, double epsilon)
+        {
+            var bA = A.Branches;
+            var bB = B.Branches;
+            double a, b;
+            for (int i = bA.Count - 1; i >= 0; i--)
+            {
+                for (int j = bA[i].Count - 1; j >= 0; j--)
+                {
+                    a = bA[i][j].Value;
+                    b = bB[i][j].Value;
+                    if (Math.Abs(b - a) > epsilon || double.IsNaN(a) != double.IsNaN(b)) return false;
+                }
+            }
+
+            return true;
+        }
 
 
         

@@ -48,15 +48,26 @@ namespace DataToolsGrasshopper.Data
             PreviousData = new GH_Structure<T>();
         }
 
-
+        /// <summary>
+        /// Main solution, shared by all Gates.
+        /// </summary>
+        /// <param name="access"></param>
         protected override void SolveInstance(IGH_DataAccess access)
         {
-            // This stops the component from assigning nulls 
-            // if we don't assign anything to an output.
+            // This stops the component from assigning nulls to the output if there is no other data
             access.DisableGapLogic();
 
             // Don't exit if no data, we want to check against the empty structure
             access.GetDataTree(0, out GH_Structure<T> currentData);
+
+            // Optional comparison precision for some components
+            // (some components don't need epsilon)
+            double precision = 0.0001;
+            try
+            {
+                access.GetData(1, ref precision);
+            }
+            catch { }
 
             // This avoids components updating twice on definition startup
             if (Active)
@@ -75,7 +86,7 @@ namespace DataToolsGrasshopper.Data
 
             // If data structure and content is different
             if (!Compare<T>.EqualDataTreeStructure(PreviousData, currentData) ||
-                !Compare<T>.EqualDataTreeContent(PreviousData, currentData, this))
+                !Compare<T>.EqualDataTreeContent(PreviousData, currentData, this, precision))
             {
                 // DataTrees work by reference. Must create a deep copy to avoid PreviousData pointing at the new incoming data. 
                 PreviousData = new GH_Structure<T>(currentData, false);
