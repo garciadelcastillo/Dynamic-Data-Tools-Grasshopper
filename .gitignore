@@ -328,3 +328,7 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+## JLX
+dist/nightly/DataToolsGrasshopper.gha
+tests/test_gates.gh

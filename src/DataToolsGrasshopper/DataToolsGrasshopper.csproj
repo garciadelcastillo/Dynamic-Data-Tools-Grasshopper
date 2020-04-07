@@ -66,13 +66,12 @@
     <Compile Include="Data\BooleanGate.cs" />
     <Compile Include="DataToolsGrasshopperInfo.cs" />
     <Compile Include="Data\GHDataComponent.cs" />
+    <Compile Include="Data\LineGate.cs" />
     <Compile Include="Data\NumberGate.cs" />
+    <Compile Include="Data\PlaneGate.cs" />
     <Compile Include="Data\PointGate.cs" />
-    <Compile Include="Gates\LineGate.cs" />
-    <Compile Include="Gates\PlaneGate.cs" />
-    <Compile Include="Gates\PointGate.cs" />
-    <Compile Include="Gates\TextGate.cs" />
-    <Compile Include="Gates\VectorGate.cs" />
+    <Compile Include="Data\TextGate.cs" />
+    <Compile Include="Data\VectorGate.cs" />
     <Compile Include="GHDDTComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
