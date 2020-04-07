@@ -67,8 +67,8 @@
     <Compile Include="DataToolsGrasshopperInfo.cs" />
     <Compile Include="Data\GHDataComponent.cs" />
     <Compile Include="Data\NumberGate.cs" />
+    <Compile Include="Data\PointGate.cs" />
     <Compile Include="Gates\LineGate.cs" />
-    <Compile Include="Gates\NumberGate.cs" />
     <Compile Include="Gates\PlaneGate.cs" />
     <Compile Include="Gates\PointGate.cs" />
     <Compile Include="Gates\TextGate.cs" />

@@ -75,6 +75,10 @@ namespace DataToolsGrasshopper.Utils
                 {
                     return EqualNumData(A as GH_Structure<GH_Number>, B as GH_Structure<GH_Number>, epsilon);
                 }
+                else if (typeof(T) == typeof(GH_Point))
+                {
+                    return EqualPointData(A as GH_Structure<GH_Point>, B as GH_Structure<GH_Point>, epsilon);
+                }
             }
             catch
             {
@@ -146,6 +150,31 @@ namespace DataToolsGrasshopper.Utils
                     a = bA[i][j].Value;
                     b = bB[i][j].Value;
                     if (Math.Abs(b - a) > epsilon || double.IsNaN(a) != double.IsNaN(b)) return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Returns true if the values of all coordinates of the points are below an epsilon threshold. 
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        internal static bool EqualPointData(GH_Structure<GH_Point> A, GH_Structure<GH_Point> B, double epsilon)
+        {
+            var bA = A.Branches;
+            var bB = B.Branches;
+            Point3d a, b;
+            for (int i = bA.Count - 1; i >= 0; i--)
+            {
+                for (int j = bA[i].Count - 1; j >= 0; j--)
+                {
+                    a = bA[i][j].Value;
+                    b = bB[i][j].Value;
+                    if (Math.Abs(a.X - b.X) > epsilon || Math.Abs(a.Y - b.Y) > epsilon || Math.Abs(a.Z - b.Z) > epsilon) return false;
                 }
             }
 
