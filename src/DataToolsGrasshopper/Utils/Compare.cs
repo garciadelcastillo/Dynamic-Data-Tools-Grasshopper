@@ -19,32 +19,12 @@ namespace DataToolsGrasshopper.Utils
     internal static class Compare<T> where T : IGH_Goo
     {
         /// <summary>
-        /// Returns true if the data trees have the same structure, 
-        /// the lists the same amount of objects, and the objects are similar/equal.
-        /// </summary>
-        /// <param name="A"></param>
-        /// <param name="B"></param>
-        /// <returns></returns>
-        internal static bool EqualDataTrees(GH_Structure<T> A, GH_Structure<T> B, 
-            double epsilon)
-        {
-            // Tree structure
-            if (!DataTreeStructure(A, B)) return false;
-
-            // Element count on lists
-            if (!ListStructure(A, B)) return false;
-            
-            return true;
-        }
-
-
-        /// <summary>
         /// Returns true if both DataTrees have the same number of branches and path names. 
         /// </summary>
         /// <param name="A"></param>
         /// <param name="B"></param>
         /// <returns></returns>
-        internal static bool DataTreeStructure(GH_Structure<T> A, GH_Structure<T> B)
+        internal static bool EqualDataTreeStructure(GH_Structure<T> A, GH_Structure<T> B)
         {
             // Compare number of branches
             if (A.Branches.Count != B.Branches.Count) return false;
@@ -62,12 +42,15 @@ namespace DataToolsGrasshopper.Utils
         }
 
         /// <summary>
-        /// Returns true if all lists in the Tree have the same elements.
+        /// Returns true if all branches have the same number of elements, and each element is
+        /// equal/similar under epsilon tolerance. 
         /// </summary>
         /// <param name="A"></param>
         /// <param name="B"></param>
+        /// <param name="comp"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
-        internal static bool ListStructure(GH_Structure<T> A, GH_Structure<T> B)
+        internal static bool EqualDataTreeContent(GH_Structure<T> A, GH_Structure<T> B, GH_Component comp, double epsilon = 0)
         {
             // Compare number of items in each branch.
             var bA = A.Branches;
@@ -77,7 +60,25 @@ namespace DataToolsGrasshopper.Utils
                 if (bA[i].Count != bB[i].Count) return false;
             }
 
-            return true;
+            // Figure out data types and branch down to a different comparison method
+            try
+            {
+                if (typeof(T) == typeof(GH_Boolean))
+                {
+                    return EqualBoolData(A as GH_Structure<GH_Boolean>, B as GH_Structure<GH_Boolean>);
+                }
+                else if (typeof(T) == typeof(GH_Integer))
+                {
+                    return EqualIntData(A as GH_Structure<GH_Integer>, B as GH_Structure<GH_Integer>);
+                }
+            }
+            catch
+            {
+                comp.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Something went wrong with the data here...");
+            }
+
+            // If here, something went wring with comparison, so flag false for an update
+            return false;
         }
 
         /// <summary>
@@ -121,5 +122,9 @@ namespace DataToolsGrasshopper.Utils
 
             return true;
         }
+
+
+
+        
     }
 }

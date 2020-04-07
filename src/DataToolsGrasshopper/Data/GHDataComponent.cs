@@ -48,7 +48,46 @@ namespace DataToolsGrasshopper.Data
             PreviousData = new GH_Structure<T>();
         }
 
-        
+
+        protected override void SolveInstance(IGH_DataAccess access)
+        {
+            // This stops the component from assigning nulls 
+            // if we don't assign anything to an output.
+            access.DisableGapLogic();
+
+            // Don't exit if no data, we want to check against the empty structure
+            access.GetDataTree(0, out GH_Structure<T> currentData);
+
+            // This avoids components updating twice on definition startup
+            if (Active)
+            {
+                access.SetDataTree(0, currentData);
+            }
+
+            // If component was flagged for update, then stop scheduling new solutions.
+            if (UpdateOutput)
+            {
+                // DataTrees work by reference. Must create a deep copy to avoid PreviousData pointing at the new incoming data. 
+                PreviousData = new GH_Structure<T>(currentData, false);
+                UpdateOutput = false;
+                return;
+            }
+
+            // If data structure and content is different
+            if (!Compare<T>.EqualDataTreeStructure(PreviousData, currentData) ||
+                !Compare<T>.EqualDataTreeContent(PreviousData, currentData, this))
+            {
+                // DataTrees work by reference. Must create a deep copy to avoid PreviousData pointing at the new incoming data. 
+                PreviousData = new GH_Structure<T>(currentData, false);
+                UpdateOutput = true;
+                Active = true;
+
+                // Schedule a new solution
+                var doc = OnPingDocument();
+                doc?.ScheduleSolution(5, PreCallBack);
+            }
+        }
+
         /// <summary>
         /// "Pre"callback for solution scheduler. Will be executed before next scheduled solution.
         /// </summary>
@@ -69,6 +108,8 @@ namespace DataToolsGrasshopper.Data
                 Params.Output[0].ExpireSolution(false);
             }
         }
+
+
 
     }
 }
