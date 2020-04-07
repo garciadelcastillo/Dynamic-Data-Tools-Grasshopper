@@ -18,6 +18,15 @@ namespace DataToolsGrasshopper.Utils
     /// <typeparam name="T"></typeparam>
     internal static class Compare<T> where T : IGH_Goo
     {
+        private static readonly Type BOOL_TYPE = typeof(GH_Boolean);
+        private static readonly Type INT_TYPE = typeof(GH_Integer);
+        private static readonly Type NUMBER_TYPE = typeof(GH_Number);
+        private static readonly Type POINT_TYPE = typeof(GH_Point);
+        private static readonly Type VECTOR_TYPE = typeof(GH_Vector);
+        private static readonly Type PLANE_TYPE = typeof(GH_Plane);
+        private static readonly Type LINE_TYPE = typeof(GH_Line); 
+        private static readonly Type TEXT_TYPE = typeof(GH_String);
+
         /// <summary>
         /// Returns true if both DataTrees have the same number of branches and path names. 
         /// </summary>
@@ -64,35 +73,35 @@ namespace DataToolsGrasshopper.Utils
             try
             {
                 Type type = typeof(T);
-                if (type == typeof(GH_Boolean))
+                if (type == BOOL_TYPE)
                 {
                     return EqualBoolData(A as GH_Structure<GH_Boolean>, B as GH_Structure<GH_Boolean>);
                 }
-                else if (type == typeof(GH_Integer))
+                else if (type == INT_TYPE)
                 {
                     return EqualIntData(A as GH_Structure<GH_Integer>, B as GH_Structure<GH_Integer>);
                 }
-                else if (type == typeof(GH_Number))
+                else if (type == NUMBER_TYPE)
                 {
                     return EqualNumData(A as GH_Structure<GH_Number>, B as GH_Structure<GH_Number>, epsilon);
                 }
-                else if (type == typeof(GH_Point))
+                else if (type == POINT_TYPE)
                 {
                     return EqualPointData(A as GH_Structure<GH_Point>, B as GH_Structure<GH_Point>, epsilon);
                 }
-                else if (type == typeof(GH_Vector))
+                else if (type == VECTOR_TYPE)
                 {
                     return EqualVectorData(A as GH_Structure<GH_Vector>, B as GH_Structure<GH_Vector>, epsilon);
                 }
-                else if (type == typeof(GH_Plane))
+                else if (type == PLANE_TYPE)
                 {
                     return EqualPlaneData(A as GH_Structure<GH_Plane>, B as GH_Structure<GH_Plane>, epsilon);
                 }
-                else if (type == typeof(GH_Line))
+                else if (type == LINE_TYPE)
                 {
                     return EqualLineData(A as GH_Structure<GH_Line>, B as GH_Structure<GH_Line>, epsilon);
                 }
-                else if (type == typeof(GH_String))
+                else if (type == TEXT_TYPE)
                 {
                     return EqualTextData(A as GH_Structure<GH_String>, B as GH_Structure<GH_String>);
                 }
