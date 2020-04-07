@@ -158,7 +158,8 @@ namespace DataToolsGrasshopper.Utils
                 {
                     a = bA[i][j].Value;
                     b = bB[i][j].Value;
-                    if (Math.Abs(b - a) > epsilon || double.IsNaN(a) != double.IsNaN(b)) return false;
+                    if (Math.Abs(b - a) > epsilon || 
+                        double.IsNaN(a) != double.IsNaN(b)) return false;
                 }
             }
 
@@ -183,7 +184,9 @@ namespace DataToolsGrasshopper.Utils
                 {
                     a = bA[i][j].Value;
                     b = bB[i][j].Value;
-                    if (Math.Abs(a.X - b.X) > epsilon || Math.Abs(a.Y - b.Y) > epsilon || Math.Abs(a.Z - b.Z) > epsilon) return false;
+                    if (Math.Abs(a.X - b.X) > epsilon || 
+                        Math.Abs(a.Y - b.Y) > epsilon || 
+                        Math.Abs(a.Z - b.Z) > epsilon) return false;
                 }
             }
 
@@ -208,7 +211,9 @@ namespace DataToolsGrasshopper.Utils
                 {
                     a = bA[i][j].Value;
                     b = bB[i][j].Value;
-                    if (Math.Abs(a.X - b.X) > epsilon || Math.Abs(a.Y - b.Y) > epsilon || Math.Abs(a.Z - b.Z) > epsilon) return false;
+                    if (Math.Abs(a.X - b.X) > epsilon || 
+                        Math.Abs(a.Y - b.Y) > epsilon || 
+                        Math.Abs(a.Z - b.Z) > epsilon) return false;
                 }
             }
 
@@ -243,6 +248,37 @@ namespace DataToolsGrasshopper.Utils
                         Math.Abs(a.YAxis.X - b.YAxis.X) > epsilon ||
                         Math.Abs(a.YAxis.Y - b.YAxis.Y) > epsilon ||
                         Math.Abs(a.YAxis.Z - b.YAxis.Z) > epsilon) return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Returns true if the values of all coordinates of the end points are below an epsilon threshold. 
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        internal static bool EqualLineData(GH_Structure<GH_Line> A, GH_Structure<GH_Line> B, double epsilon)
+        {
+            var bA = A.Branches;
+            var bB = B.Branches;
+            Line a, b;
+            for (int i = bA.Count - 1; i >= 0; i--)
+            {
+                for (int j = bA[i].Count - 1; j >= 0; j--)
+                {
+                    a = bA[i][j].Value;
+                    b = bB[i][j].Value;
+                    if (
+                        Math.Abs(a.FromX - b.FromX) > epsilon ||
+                        Math.Abs(a.FromY - b.FromY) > epsilon ||
+                        Math.Abs(a.FromZ - b.FromZ) > epsilon ||
+                        Math.Abs(a.ToX - b.ToX) > epsilon ||
+                        Math.Abs(a.ToY - b.ToY) > epsilon ||
+                        Math.Abs(a.ToZ - b.ToZ) > epsilon) return false;
                 }
             }
 
