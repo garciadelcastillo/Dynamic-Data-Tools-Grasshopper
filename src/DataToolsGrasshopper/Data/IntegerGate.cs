@@ -11,7 +11,7 @@ using DataToolsGrasshopper.Utils;
 
 namespace DataToolsGrasshopper.Data
 {
-    public class IntegerGate : GHDataComponent<GH_Integer>
+    public class IntegerGate : GHGateComponent<GH_Integer>
     {
         public IntegerGate()
           : base("Integer Gate", 

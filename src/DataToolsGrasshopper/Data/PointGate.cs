@@ -14,7 +14,7 @@ using DataToolsGrasshopper.Utils;
 
 namespace DataToolsGrasshopper.Data
 {
-    public class PointGate : GHDataComponent<GH_Point>
+    public class PointGate : GHGateComponent<GH_Point>
     {
         public PointGate()
           : base("Point Gate",

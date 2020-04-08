@@ -14,7 +14,7 @@ using DataToolsGrasshopper.Utils;
 
 namespace DataToolsGrasshopper.Data
 {
-    public class PlaneGate : GHDataComponent<GH_Plane>
+    public class PlaneGate : GHGateComponent<GH_Plane>
     {
         public PlaneGate()
           : base("Plane Gate",

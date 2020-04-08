@@ -11,7 +11,7 @@ using DataToolsGrasshopper.Utils;
 
 namespace DataToolsGrasshopper.Data
 {
-    public class BooleanGate : GHDataComponent<GH_Boolean>
+    public class BooleanGate : GHGateComponent<GH_Boolean>
     {
         public BooleanGate()
           : base("Boolean Gate", 
