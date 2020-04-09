@@ -123,6 +123,7 @@ namespace DataToolsGrasshopper.Utils
         /// <returns></returns>
         internal static bool EqualBoolData(GH_Structure<GH_Boolean> A, GH_Structure<GH_Boolean> B)
         {
+            // Could I use GH_Structure.NonNulls here?
             var bA = A.Branches;
             var bB = B.Branches;
             for (int i = bA.Count - 1; i >= 0; i--)

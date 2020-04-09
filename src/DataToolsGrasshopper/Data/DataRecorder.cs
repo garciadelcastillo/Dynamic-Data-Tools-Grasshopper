@@ -16,27 +16,28 @@ namespace DataToolsGrasshopper.Data
 {
     public class DataRecorder : GHDataComponent
     {
-        private List<object> data;
+        private List<GH_Structure<IGH_Goo>> data;
         private bool recordToggle;
         private bool justReset;
-        private int limit;
+        private int dataLimit;
 
         public DataRecorder() : base(
             "Data Recorder", 
             "Data Recorder", "Stores changing data persistently, with options as parameters.")
         {
-            data = new List<object>();
-            recordToggle = false;
+            data = new List<GH_Structure<IGH_Goo>>();
+            recordToggle = true;
             justReset = false;
-            limit = 0;
+            dataLimit = 0;
         }
 
+        public override GH_Exposure Exposure => GH_Exposure.secondary;
         protected override System.Drawing.Bitmap Icon => Properties.Resources.icons_data_recorder;
         public override Guid ComponentGuid => new Guid("8825ead4-abc6-4b0b-8c72-97f8d7086c25");
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Data", "D", "Data to record.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Data", "D", "Data to record.", GH_ParamAccess.tree);
             pManager.AddBooleanParameter("Record", "R", "Record data?", GH_ParamAccess.item, true);
             pManager.AddBooleanParameter("Reset", "C", "Clear stored data?", GH_ParamAccess.item, false);
             pManager.AddIntegerParameter("Max", "M", "Max number of elements to store? Use 0 for no limit.",
@@ -45,30 +46,33 @@ namespace DataToolsGrasshopper.Data
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("data", "D", "Recorded data", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Data", "D", "Recorded data", GH_ParamAccess.tree);
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override void SolveInstance(IGH_DataAccess access)
         {
-            object datum = null;
-            bool record = true;
-            bool reset = false;
+            // Maybe Data input could be optional...?
+            // Don't exit if no data, we want to check against the empty structure
+            access.GetDataTree(0, out GH_Structure<IGH_Goo> datum);
+
+            bool isRecording = true;
+            access.GetData(1, ref isRecording);
+
+            bool shouldReset = false;
+            access.GetData(2, ref shouldReset);
+
             int lim = 0;
+            access.GetData(3, ref lim);
 
-            if (!DA.GetData(0, ref datum)) return;
-            if (!DA.GetData(1, ref record)) return;
-            if (!DA.GetData(2, ref reset)) return;
-            if (!DA.GetData(3, ref lim)) return;
+            dataLimit = lim;
 
-            limit = lim;
-
-            if (reset)
+            if (shouldReset)
             {
-                data = new List<object>();
+                data = new List<GH_Structure<IGH_Goo>>();
                 justReset = true;
                 return;
             }
-            // If turning off reset, do not record right away (like original component), 
+            // If turning off reset, do not record right away (like the vanilla component),
             // but wait for a new data tick.
             else if (justReset)
             {
@@ -76,7 +80,7 @@ namespace DataToolsGrasshopper.Data
                 return;
             }
 
-            if (record)
+            if (isRecording)
             {
                 if (!recordToggle)
                 {
@@ -85,8 +89,8 @@ namespace DataToolsGrasshopper.Data
                 }
                 else
                 {
-                    // Store null items too, can be cleaned with another component
-                    data.Add(datum);
+                    // Add a deep clone to avoid pointer problems.
+                    data.Add(new GH_Structure<IGH_Goo>(datum, false));
                 }
             }
             else
@@ -94,15 +98,22 @@ namespace DataToolsGrasshopper.Data
                 recordToggle = false;
             }
 
-            if (limit != 0)
+            if (dataLimit != 0)
             {
-                while (data.Count > limit)
+                while (data.Count > dataLimit)
                 {
                     data.RemoveAt(0);
                 }
             }
 
-            DA.SetDataList(0, data);
+            // This is not very optimal, but oh well, at least its O(n)...?
+            var merge = new GH_Structure<IGH_Goo>();
+            foreach (var tree in data)
+            {
+                merge.MergeStructure(tree);
+            }
+
+            access.SetDataTree(0, merge);
         }
 
     }
