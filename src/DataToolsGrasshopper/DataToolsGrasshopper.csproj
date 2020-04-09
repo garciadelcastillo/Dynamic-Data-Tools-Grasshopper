@@ -73,6 +73,7 @@
     <Compile Include="Data\PlaneGate.cs" />
     <Compile Include="Data\PointGate.cs" />
     <Compile Include="Data\TextGate.cs" />
+    <Compile Include="Data\Timer.cs" />
     <Compile Include="Data\VectorGate.cs" />
     <Compile Include="GHDDTComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
