@@ -38,6 +38,8 @@ namespace DataToolsGrasshopper.Data
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Data", "D", "Data to record.", GH_ParamAccess.tree);
+            pManager[0].Optional = true;
+
             pManager.AddBooleanParameter("Record", "R", "Record data?", GH_ParamAccess.item, true);
             pManager.AddBooleanParameter("Reset", "C", "Clear stored data?", GH_ParamAccess.item, false);
             pManager.AddIntegerParameter("Max", "M", "Max number of elements to store? Use 0 for no limit.",
