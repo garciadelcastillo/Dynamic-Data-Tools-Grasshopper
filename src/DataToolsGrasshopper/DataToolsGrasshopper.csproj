@@ -62,20 +62,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\DataRecorder.cs" />
+    <Compile Include="Data\Recorder\DataRecorder.cs" />
     <Compile Include="Data\GHDataComponent.cs" />
-    <Compile Include="Data\IntegerGate.cs" />
-    <Compile Include="Data\BooleanGate.cs" />
+    <Compile Include="Data\Gates\IntegerGate.cs" />
+    <Compile Include="Data\Gates\BooleanGate.cs" />
     <Compile Include="DataToolsGrasshopperInfo.cs" />
-    <Compile Include="Data\GHGateComponent.cs" />
-    <Compile Include="Data\LineGate.cs" />
-    <Compile Include="Data\NumberGate.cs" />
-    <Compile Include="Data\PlaneGate.cs" />
-    <Compile Include="Data\PointGate.cs" />
-    <Compile Include="Data\TextGate.cs" />
+    <Compile Include="Data\Gates\GHGateComponent.cs" />
+    <Compile Include="Data\Gates\LineGate.cs" />
+    <Compile Include="Data\Gates\NumberGate.cs" />
+    <Compile Include="Data\Gates\PlaneGate.cs" />
+    <Compile Include="Data\Gates\PointGate.cs" />
+    <Compile Include="Data\Gates\TextGate.cs" />
+    <Compile Include="Data\Switches\Counter.cs" />
     <Compile Include="Data\Timer.cs" />
-    <Compile Include="Data\ToggleGate.cs" />
-    <Compile Include="Data\VectorGate.cs" />
+    <Compile Include="Data\Gates\ToggleGate.cs" />
+    <Compile Include="Data\Gates\VectorGate.cs" />
     <Compile Include="GHDDTComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
